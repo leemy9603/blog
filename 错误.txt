@@ -1,0 +1,65 @@
+Home.vue下
+
+	<li v-for="item in artitems" ref="li">
+	 			{{item.name}} [ <span>{{item.num}}</span> ]
+	 		</li>
+<srcipt>
+export default {
+    name: 'Home',
+    methods: {
+     ...mapActions([
+      'setArtItems','setNickname' // 映射为 this.$store.dispatch('setArtItems ')
+    ]),
+    },
+    computed: {
+      ...mapState([
+        'nickname','personal','artItems'
+      ]),
+    nickName () {
+    	 this.setNickname()
+    	 return this.nicknamea
+    },
+    artitems () {
+    	this.setArtItems()
+    	return this.artItems.splice()
+    }
+    }
+ }
+</script>
+
+----------main.js目录下-----------------
+mutations: {
+		setNickname (state,nickname){
+			state.nickname = nickname
+		},
+		setArtItems (state,obj){
+			state.artItems.push(obj);
+			console.log(state.artItems.length)
+			if(state.artItems.length === 3){
+				console.log(state.artItems)
+			}
+		}
+	},
+	actions: {
+		setNickname ({commit}){
+			var nickname = 'jh';
+			commit('setNickname',nickname)
+			console.log(nickname);
+		},
+		setArtItems ({commit}){
+			var obj = {
+				'name': 'css',
+				'num':20
+			}
+			commit('setArtItems',obj)
+		}
+	}
+
+--*******************问题描述******************************--------
+操作:在Home.vue组件中使用v-for渲染数组artItems中的值，而artItems中的值通过state.artItems.push(obj);
+来进行push,在Home.vue的computed中调用分发的action，完成对artItems值的添加，并且反映在view视图中
+问题：You may have an infinite update loop in a component render function. 在组件呈现函数中可能有无限的更新循环。
+
+原因：计算属性是基于它们的依赖进行缓存的，在它的相关依赖发生改变时才会重新求值，第一次在computed中push时，相关依赖已经发生改变，
+，因此conputed会不断地求值，不断地push,造成死循环
+
