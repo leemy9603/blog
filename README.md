@@ -20,7 +20,18 @@ node blog.js
 npm run dev
 
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader)
+
+使用vue+vueX++express+mysql完成个人博客
+
+
+项目描述：
+  1)Mysql创建member(人员表)，role（角色表)，comment(评论表),photo(图片表)，photocate(图片分类表)，article(文章表)，category(文章分类表)
+
+  2)Express实现对数据库的增删查改操作,将对各个对象（如member）实现对数据库的增删查改逻辑且监听前端的请求分别封装在不同文件下，并在node.js中的路由功能注册各对象的路由接口
+  
+  3)Vue利用MVVM 数据绑定和一个可组合的组件系统，在vue2中父子组件通信需要用到prop属性，如果子组件需要通信需要通过$emit(发射事件)，$on(监听事件),当子组件多了之后，很难管理。所以我利用VueX（状态管理模式）,实现数据在不同组件间的共享和管理
+  
 
 目录 
   |-- bower_components(客户端所需框架)
